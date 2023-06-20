@@ -26,19 +26,18 @@ inputs:
 
 runs:
     using: "composite"
-    steps: 
+    steps:
         - name: "Login ACR with Docker"
           uses: azure/docker-login@v1
           with:
-            login-server: ${{ inputs.registry }}
-            username: ${{ inputs.azure-client-id }}
-            password: ${{ inputs.azure-secret }}
+              login-server: ${{ inputs.registry }}
+              username: ${{ inputs.azure-client-id }}
+              password: ${{ inputs.azure-secret }}
         - name: "Tag and upload image"
           shell: bash
           run: |
-            sourceImage="${{ inputs.registry }}/${{ inputs.registry-repository }}::${{ inputs.build-id }}"
-            newtag="${{ inputs.registry }}/${{ inputs.registry-repository }}::${{ inputs.environment-shortname }}"
-            docker pull "$sourceImage"
-            docker tag sourceImage newtag
-            docker push newtag
-  
+              sourceImage="${{ inputs.registry }}/${{ inputs.registry-repository }}::${{ inputs.build-id }}"
+              newtag="${{ inputs.registry }}/${{ inputs.registry-repository }}::${{ inputs.environment-shortname }}"
+              docker pull "$sourceImage"
+              docker tag sourceImage newtag
+              docker push newtag
