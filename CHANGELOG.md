@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/equinor/iaf-actions/compare/v1.0.0...v1.0.1) (2023-06-20)
+
+
+### Bug Fixes
+
+* add changelog to prettierignore ([2353f82](https://github.com/equinor/iaf-actions/commit/2353f821b2afdc8a64686b69400f6376ac06f755))
+
 ## 1.0.0 (2023-06-20)
 
 
