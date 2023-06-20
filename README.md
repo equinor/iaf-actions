@@ -2,7 +2,8 @@
 This repository contains reusable GitHub Actions and Workflows. Inspired by (and copied from) [farfetched-Actions](https://github.com/equinor/farfetched-actions). As a part of moving all pipelines for IAF applications from Azure Devops to Github Actions, we also create and add reusable actions where its possible. 
 
 ## Workflows
-
+* [Fusion Deploy](#fusion-deploy)
+* [Pr Name Validation](#pr-name-validation)
 ### Fusion Deploy
 This workflow deploys the created artifact(s) in a workflow to the given Fusion Portal environment. It deploys "on behalf of" a Azure ServicePrincipal with Federated Credentials.
 The workflow will login into Azure using the given ServicePrincipal, obtain a Token to use against the given resource and then upload the artifact(s) to the Portal using the token.
@@ -44,4 +45,43 @@ Example (`deploy` here is a _job_ in a GitHub workflow)
                   azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
                   azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
                   azure-resource-id: ${{ secrets.AZURE_RESOURCE_ID }}
+```
+
+### PR name validation
+This action validates the PR name in accordance to the Farfetched "rules", which again are based on [Conventional Commit](https://www.conventionalcommits.org/en/v1.0.0/).
+If the name/title of the PR is not in accordance to the Conventional Commit standard (with possible additional restrictions added by the
+Farfetched team), the action will "fail".
+In case of failure the PR will be labeled with `invalid_PR_name` (default, can be overridden).
+
+_Parameters:_
+* **github-token** (mandatory)
+The GitHub token, needed for internal `gh` operations (e.g. labeling the PR). Typically obtained through `${{ secrets.GITHUB_TOKEN }}`.
+* **failed-pr-label** (optional)
+The label to "stamp" on the PR if validation fails. Default: `invalid_PR_name`.
+
+
+Example
+```
+name: 🔍️ PR Validation
+on:
+    pull_request:
+        branches:
+            - main
+        types:
+            - opened
+            - edited
+            - reopened
+            - synchronize
+    workflow_dispatch:
+
+jobs:
+    lint-pr-name:
+        name: Lint pull request title
+        runs-on: ubuntu-latest
+        steps:
+            - name: Validate name
+              uses: equinor/farfetched-actions/pr-name-validator@v2.0
+              with:
+                  github-token:  ${{ secrets.GITHUB_TOKEN }}
+
 ```
