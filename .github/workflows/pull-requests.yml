@@ -15,3 +15,25 @@ jobs:
                   node-version: "lts/*"
             - name: Find code style issues
               run: npx prettier --check .
+    
+    release_please:
+        name: 🔖 Release Please
+        runs-on: ubuntu-latest
+        steps:
+          - name: Create Release
+            id: release
+            uses: google-github-actions/release-please-action@v3
+            with:
+              release-type: simple
+              package-name: spinedatasheet
+              changelog-types: >
+                [{"type":"feat","section":"Features","hidden":false},
+                {"type":"fix","section":"Bug Fixes","hidden":false},
+                {"type":"style", "section":"Cosmetic changes","hidden":false},
+                {"type":"docs","section":"For developers","hidden":false},
+                {"type":"refactor","section":"For developers","hidden":false},
+                {"type":"ci", "section":"For developers","hidden":false},
+                {"type":"chore", "section":"For developers","hidden":false},
+                {"type":"perf", "section":"Optimalization","hidden":false}]
+        outputs:
+          release_created: ${{ steps.release.outputs.release_created }}
