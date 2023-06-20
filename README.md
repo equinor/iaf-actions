@@ -44,7 +44,7 @@ Example (`deploy` here is a _job_ in a GitHub workflow)
                   name: theNameOfTheArtifactThatWasUploaded.zip
 
             - name: Deploy to Fusion Portal
-              uses: equinor/farfetched-actions/fusion-deploy@v1.0
+              uses: equinor/iaf-actions/fusion-deploy@v1.0
               with:
                   fusion-portal-url: ${{ secrets.FUSION_PORTAL_URL }}
                   app-key: ${{ env.FUSION_APP_KEY }}
@@ -89,7 +89,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Validate name
-              uses: equinor/farfetched-actions/pr-name-validator@v2.0
+              uses: equinor/iaf-actions/pr-name-validator@v1.0
               with:
                   github-token:  ${{ secrets.GITHUB_TOKEN }}
 
