@@ -1,0 +1,22 @@
+name: 📚 Tag Container
+author: "Eirik Sander-Fjeld"
+description: "Update tag for container to reflect each environment"
+inputs:
+    container-registry:
+        description: "Name of the container registry"
+        required: true
+    build-id:
+        description: "The unique id of the current build used to retrieve the container"
+        required: true
+    environment-shortname:
+        description: "The shortname of the current environment, IE ci, dev or qa"
+        required: true
+    registry:
+        description: "The URI of the container repository in Azure"
+        required: false
+    registry-repository:
+        description: "The repository in azure container registry where the container is placed."
+        required: true
+    tag:
+        description: "The tag to add to the container"
+        required: true
