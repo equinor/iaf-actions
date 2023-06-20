@@ -2,9 +2,6 @@ name: 📚 Tag Container
 author: "Eirik Sander-Fjeld"
 description: "Update tag for container to reflect each environment"
 inputs:
-    container-registry:
-        description: "Name of the container registry"
-        required: true
     build-id:
         description: "The unique id of the current build used to retrieve the container"
         required: true
@@ -20,3 +17,28 @@ inputs:
     tag:
         description: "The tag to add to the container"
         required: true
+    client-id:
+        description: "The username or client id to connect to ACR"
+        required: true
+    client-secret:
+        description: "The password or client secret to use. "
+        required: true
+
+runs:
+    using: "composite"
+    steps: 
+        - name: "Login ACR with Docker"
+          uses: azure/docker-login@v1
+          with:
+            login-server: ${{ inputs.registry }}
+            username: ${{ inputs.azure-client-id }}
+            password: ${{ inputs.azure-secret }}
+        - name: "Tag and upload image"
+          shell: bash
+          run: |
+            sourceImage="${{ inputs.registry }}/${{ inputs.registry-repository }}::${{ inputs.build-id }}"
+            newtag="${{ inputs.registry }}/${{ inputs.registry-repository }}::${{ inputs.environment-shortname }}"
+            docker pull "$sourceImage"
+            docker tag sourceImage newtag
+            docker push newtag
+  

@@ -6,6 +6,7 @@ This repository contains reusable GitHub Actions and Workflows. Inspired by (and
 
 * [Fusion Deploy](#fusion-deploy)
 * [Pr Name Validation](#pr-name-validation)
+* [Tag Container](#tag-container)
 
 ### Fusion Deploy
 
@@ -92,4 +93,32 @@ jobs:
               with:
                   github-token:  ${{ secrets.GITHUB_TOKEN }}
 
+```
+
+### Tag Container 
+
+This action adds an environment specific tag  to existing container image created by the same build. The Action uses provided credentials to login into specified Azure Container Registry (ACR), download image with tag corresponding to build-id, add environment specific tag (IE, ci-release, qa-release or prod-release) and push image back to ACR. 
+
+_Parameters:_
+* **build-id:** The unique id of the current build used to retrieve the container
+* **environment-shortname:** The shortname of the current environment, IE ci, dev or qa
+* **registry**: The URI of the container repository in Azure
+* **registry-repository:** The repository in azure container registry where the container is placed
+* **tag:** The tag to add to the container
+* **client-id:** The username or client id to connect to ACR
+* **client-secret:** The password or client secret to use
+
+Example
+
+```text
+- name: "Tag Image with Env"
+    uses: equinor/iaf-actions/add-container-tags@v1.0
+    with:
+        build-id: ${{ github.sha }}
+        environment-shortname: 'ci'
+        registry: ${{ secrets.acr_registry }}
+        registry-repository: ${{ secrets.acr_repository }}
+        tag: ${{ secrets.shortenvname }}
+        client-id: ${{ secrets.clientid }}
+        client-secret: ${{ secrets.clientsecret }}
 ```
