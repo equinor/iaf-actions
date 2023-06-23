@@ -36,8 +36,8 @@ runs:
         - name: "Tag and upload image"
           shell: bash
           run: |
-              sourceImage="${{ inputs.registry }}/${{ inputs.registry-repository }}::${{ inputs.build-id }}"
-              newtag="${{ inputs.registry }}/${{ inputs.registry-repository }}::${{ inputs.environment-shortname }}"
+              sourceImage="${{ inputs.registry }}/${{ inputs.registry-repository }}:${{ inputs.build-id }}"
+              newtag="${{ inputs.registry }}/${{ inputs.registry-repository }}:${{ inputs.environment-shortname }}"
               docker pull $sourceImage
               docker tag sourceImage newtag
               docker push newtag
