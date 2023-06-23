@@ -31,8 +31,8 @@ runs:
           uses: azure/docker-login@v1
           with:
               login-server: ${{ inputs.registry }}
-              username: ${{ inputs.azure-client-id }}
-              password: ${{ inputs.azure-secret }}
+              username: ${{ inputs.client-id }}
+              password: ${{ inputs.client-secret }}
         - name: "Tag and upload image"
           shell: bash
           run: |
