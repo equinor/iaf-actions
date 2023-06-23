@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/equinor/iaf-actions/compare/v1.1.0...v1.1.1) (2023-06-23)
+
+
+### Bug Fixes
+
+* change from environment-shortname to tag ([36abbdf](https://github.com/equinor/iaf-actions/commit/36abbdf91844b69434af5f4ab08d197aa7bc177c))
+
 ## [1.1.0](https://github.com/equinor/iaf-actions/compare/v1.0.0...v1.1.0) (2023-06-20)
 
 
