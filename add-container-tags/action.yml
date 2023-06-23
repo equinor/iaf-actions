@@ -37,7 +37,7 @@ runs:
           shell: bash
           run: |
               sourceImage="${{ inputs.registry }}/${{ inputs.registry-repository }}:${{ inputs.build-id }}"
-              newtag="${{ inputs.registry }}/${{ inputs.registry-repository }}:${{ inputs.environment-shortname }}"
+              newtag="${{ inputs.registry }}/${{ inputs.registry-repository }}:${{ inputs.tag }}"
               docker pull $sourceImage
               docker tag sourceImage newtag
               docker push newtag
