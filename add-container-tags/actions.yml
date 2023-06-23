@@ -1,4 +1,4 @@
-name: 📚 Tag Container
+name: "📚 Tag Container"
 author: "Eirik Sander-Fjeld"
 description: "Update tag for container to reflect each environment"
 inputs:
